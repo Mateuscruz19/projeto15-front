@@ -10,6 +10,7 @@ import Shop from "./assets/imgs/Shop.png"
 import QRcode from "./assets/imgs/qrcode.png"
 import Play from "./assets/imgs/googleplay.png"
 import AppStore from "./assets/imgs/appstore.png"
+import Home from "./Home"
 
 export default function Principal(){
     return(
@@ -53,7 +54,7 @@ export default function Principal(){
             </ContainerTopRight>
         </Header>
 
-
+        <Home></Home>
 
 
         <Footer>
@@ -281,7 +282,7 @@ const Footer = styled.footer`
     height:350px;
     background-color:#071D41;
     border-top: 2px solid #071D41;
-    position: absolute;
+    margin-top:30px;
     bottom: 0;
     display:flex;
     align-items:center;
