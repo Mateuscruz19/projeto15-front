@@ -1,20 +1,30 @@
 import React from 'react';
 import styled from 'styled-components';
-import Logo from "./assets/imgs/Logo.png";
-import LogoMini from "./assets/imgs/LogoMiniSize.png"
-import LogoRedVersion from "./assets/imgs/LogoRedVersion.png"
+import LogoRedVersion from "./assets/imgs/NewLogo.png"
 import { createGlobalStyle } from 'styled-components'
 import Glasses from "./assets/imgs/Glasses.png"
 import UserPic from "./assets/imgs/User.png"
 import Shop from "./assets/imgs/Shop.png"
 import QRcode from "./assets/imgs/qrcode.png"
 import Play from "./assets/imgs/googleplay.png"
+import { Link } from 'react-router-dom';
 import AppStore from "./assets/imgs/appstore.png"
 import Home from "./Home"
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Login from './Login';
+import Register from './Register';
+import AuthProvider from './context.js/auth';
+import ProductPage from './ProductPage';
+import { useState, useEffect, useContext } from 'react';
 
 export default function Principal(){
+
+    const [isLog, setLog] = useState(false)
+
     return(
         <>
+        <BrowserRouter>
+            <AuthProvider>
         <GlobalStyle/>
         <TopLine>
 
@@ -32,7 +42,9 @@ export default function Principal(){
             
         </TopLine>
         <Header>
-            <img src={LogoRedVersion}/>
+            <Link to="/">
+            <LogoYet src={LogoRedVersion}/>
+            </Link>
             <SearchBox>
                 <SearchConteiner>
                 <SearchBar placeholder='Pesquisar'></SearchBar>
@@ -54,8 +66,15 @@ export default function Principal(){
             </ContainerTopRight>
         </Header>
 
-        <Home></Home>
-
+        
+        
+                <Routes>
+                    <Route path="/" element={ <Home/>}/>
+                    <Route path='/Register' element={<Register/>}/>
+                    <Route path='/Login' element={<Login/>}/>
+                    <Route path="/ProductPage" element={<ProductPage log={isLog}/>}/>
+                </Routes>
+           
 
         <Footer>
             <FootersDiv>
@@ -93,6 +112,8 @@ export default function Principal(){
             </FootersDiv>
 
         </Footer>
+        </AuthProvider>
+        </BrowserRouter>
         </>
     )
 }
@@ -105,14 +126,20 @@ a{
 `
 const TopLine = styled.div`
 
-    background-color:white;
+    background-color:#EDE24A;
     width:100%;
     height:21px;
     display:flex;
     align-items:center;
     justify-content:center;
+    color:#1C2F8B;
 
 `
+
+const LogoYet = styled.img`
+
+    cursor: pointer;
+` 
 
 const Header = styled.header`
 
@@ -122,13 +149,14 @@ const Header = styled.header`
     flex-direction:row;
     justify-content:space-evenly;
     align-items:center;
-    border-bottom: 2px solid #FF1616;
-    background-color:#071D41;
+    border: 2px solid #11DA6B;
+    background-color:#1C2F8B;
 
 img{
-    width:120px;
-    height:60px;
-    }
+    width:40%;
+    margin-left:20px;
+}
+
 `
 
 const ContainerTopRight = styled.div`
@@ -140,6 +168,7 @@ const ContainerTopRight = styled.div`
     justify-content:space-between;
 
     img{
+        
         width:50px;
         height:50px;
     }
@@ -228,7 +257,7 @@ const DescriptionContainer = styled.div`
     font-size: 13px;
     line-height: 94px;
     letter-spacing: -0.075em;
-    color: white;
+    color: #EDE24A;
     }
 
 `
