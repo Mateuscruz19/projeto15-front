@@ -1,5 +1,5 @@
-import BannerMain from "./assets/imgs/banner1.svg"
-import BannerSustenter from "./assets/imgs/Stores.svg"
+import BannerMain from "./assets/imgs/banner1.png"
+import BannerSustenter from "./assets/imgs/Stores.png"
 import { createGlobalStyle } from 'styled-components'
 import React from 'react';
 import styled from 'styled-components';
@@ -7,11 +7,14 @@ import MockData from "./MockData.js"
 import { Link } from 'react-router-dom';
 import { useState, useEffect, useContext } from 'react';
 import axios from "axios";
+import { AuthContext } from './context.js/auth.js';
 
 export default function Home(){
 
     const [Products,setProducts] = useState([])
+    const { setUser,User } = useContext(AuthContext);
 
+    
     useEffect(()=> {
 
         axios.get("http://localhost:5000/products")
@@ -23,6 +26,15 @@ export default function Home(){
             console.log(err.response.data)
         })
     },[])
+
+    useEffect(() => {
+        if(localStorage.getItem("token")){
+         setUser({
+             "token":localStorage.getItem("token"),
+             "nome":localStorage.getItem("nome")
+         })
+        }
+     },[])
 
     return(
         <>

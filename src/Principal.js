@@ -61,7 +61,9 @@ export default function Principal(){
                 </DescriptionContainer>
             </SearchBox>
             <ContainerTopRight>
+            <Link to="/Login">
                 <img src={UserPic} alt="Userpic"/>
+            </Link>
                 <img src={Shop}/>
             </ContainerTopRight>
         </Header>

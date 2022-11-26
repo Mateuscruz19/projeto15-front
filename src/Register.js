@@ -31,11 +31,12 @@ export default function Register(){
         const obj = { nome: NameUser, email: EmailUser,  senha: SenhaUser, confirmSenha: ConfirmSenhaUser
         }
         SetSignUser(obj)
-        const promisse = axios.post("http://localhost:5000/signup",obj)
+        axios.post("http://localhost:5000/signup",obj)
         .then((res) =>{
             console.log("Cadastro concluido")
             console.log(res)
-            navigate("/")
+            alert("Registrado com sucesso,agora logue para poder comprar a vontade :D")
+            navigate("/Login")
         })
         .catch((err) => {
             console.log(err.response.data)

@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, Navigate, useLocation } from 'react-router-dom';
 import Like from "./assets/imgs/likes.png"
 import Star from "./assets/imgs/star.png"
 import YellowStar  from "./assets/imgs/yellowstar.png"
-
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from './context.js/auth.js';
 
 export default function ProductPage(props){
 
@@ -12,8 +13,16 @@ export default function ProductPage(props){
     const [Image, setImage] = useState("https://media.istockphoto.com/id/924949200/vector/404-error-page-or-file-not-found-icon.jpg?s=170667a&w=0&k=20&c=gsR5TEhp1tfg-qj1DAYdghj9NfM0ldfNEMJUfAzHGtU=")
     const [Name, setName] = useState("404 NOT FOUND")
     const location = useLocation()
-
+    const { setUser,User } = useContext(AuthContext);
+    let navigate = useNavigate();
     console.log(location)
+
+    function CardAdd(){
+        if(!localStorage.getItem("tokenBR")){
+            alert("Voce precisa estar logado para adicionar itens no carrinho.")
+            return         }
+    }
+
 
     useEffect(()=>{
 
@@ -46,9 +55,13 @@ export default function ProductPage(props){
                         <img src={YellowStar}/>
                         <img src={Star}/>
                     </ConteinerStars>
-                    <BuyButton>Colocar no carrinho</BuyButton>
+                    <BuyButton onClick={CardAdd}>Colocar no carrinho</BuyButton>
                     <p>Voce precisa esta logado pra colocar coisas no carrinho!</p>
-                    <LoginButton>Login</LoginButton>
+                    
+                    <Link to="/Login">
+                     <LoginButton>Login</LoginButton>
+                    </Link>
+
                 </ConteinerRight>
              </ConteinerAll>
         </Main>

@@ -26,12 +26,10 @@ export default function Login(){
     }
 
     useEffect(() => {
-        localStorage.removeItem("nome");
-        return
-       if(localStorage.getItem("token")){
+       if(localStorage.getItem("tokenBR")){
         setUser({
-            "token":localStorage.getItem("token"),
-            "name":localStorage.getItem("name")
+            "token":localStorage.getItem("tokenBR"),
+            "nome":localStorage.getItem("nome")
         })
         navigate("/") 
         console.log(User)
@@ -49,7 +47,7 @@ export default function Login(){
         }
         SetSignUser(obj)
             axios.post("http://localhost:5000/signin",obj).then((res)=>{
-                localStorage.setItem("token",res.data.token);
+                localStorage.setItem("tokenBR",res.data.token);
                 localStorage.setItem("nome",res.data.name)
                 setUser({
                     "token":res.data.token,
@@ -57,7 +55,7 @@ export default function Login(){
                 })
                 console.log(res.data)
                 console.log(User) 
-                navigate("/Principal")
+                navigate("/")
             })
            .catch((err)=>{
             console.log(err)
