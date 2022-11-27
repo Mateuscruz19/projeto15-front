@@ -6,6 +6,7 @@ import Star from "./assets/imgs/star.png"
 import YellowStar  from "./assets/imgs/yellowstar.png"
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from './context.js/auth.js';
+import axios from 'axios';
 
 export default function ProductPage(props){
 
@@ -18,9 +19,28 @@ export default function ProductPage(props){
     console.log(location)
 
     function CardAdd(){
-        if(!localStorage.getItem("tokenBR")){
+        if(!User){
             alert("Voce precisa estar logado para adicionar itens no carrinho.")
-            return         }
+            navigate("/Login")
+            return 
+        }
+
+      const obj = {
+            "url":Image,
+            "nome":Name,
+            "valor":Price
+        }
+
+        const Auth = {
+            "headers": { "Authorization": `Bearer ${User.tokenBR}` }
+        }
+
+        axios.post("http://localhost:5000/cart",obj,Auth)
+        .then((res)=>{
+            alert("Objeto colocado no carrinho!")
+            console.log(res.data)
+        })
+        .catch((err) => console.log(err.response.data))
     }
 
 

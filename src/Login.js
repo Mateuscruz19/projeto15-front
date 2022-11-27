@@ -31,6 +31,7 @@ export default function Login(){
             "token":localStorage.getItem("tokenBR"),
             "nome":localStorage.getItem("nome")
         })
+        alert("Voce já esta logado,para deslogar clique em Deslogar no rodapé do site.")
         navigate("/") 
         console.log(User)
        }
@@ -124,6 +125,7 @@ const Background = styled.main`
     margin-bottom:70px;
 
 `
+
 const LogoA = styled.img`
 
     width:250px;

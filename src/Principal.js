@@ -16,7 +16,10 @@ import Register from './Register';
 import AuthProvider from './context.js/auth';
 import ProductPage from './ProductPage';
 import { useState, useEffect, useContext } from 'react';
-
+import Cart from './Cart';
+import List from "./List"
+import Payment from './Payment';
+import Sucess from "./Sucess"
 export default function Principal(){
 
     const [isLog, setLog] = useState(false)
@@ -64,7 +67,10 @@ export default function Principal(){
             <Link to="/Login">
                 <img src={UserPic} alt="Userpic"/>
             </Link>
+            <Link to="/Cart">
                 <img src={Shop}/>
+            </Link>
+                
             </ContainerTopRight>
         </Header>
 
@@ -75,6 +81,10 @@ export default function Principal(){
                     <Route path='/Register' element={<Register/>}/>
                     <Route path='/Login' element={<Login/>}/>
                     <Route path="/ProductPage" element={<ProductPage log={isLog}/>}/>
+                    <Route path="/Cart" element={<Cart/>}/>
+                    <Route path="/List" element={<List/>}/>
+                    <Route path="/Payment" element={<Payment/>}/>
+                    <Route path="/Sucess" element={<Sucess/>}/>
                 </Routes>
            
 
