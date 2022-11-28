@@ -8,7 +8,7 @@ import Logo from "./assets/imgs/LogoRedVersion.png"
 import Go from "./assets/imgs/Google.png"
 import { Link } from 'react-router-dom';
 import axios from "axios";
-
+import Swal from 'sweetalert2'
 
 export default function Cart(){
 
@@ -56,7 +56,7 @@ export default function Cart(){
         axios.delete(`${Env}/cart/${props._id}`,{},Auth)
         .then((res) => {
             console.log(res.data)
-            alert(`O produto ${props.nome} foi deletado com sucesso.`)
+            Swal.fire(`O produto ${props.nome} foi deletado com sucesso.`)
             setAtt(Att+1)
         })
         .catch((err) => {
@@ -67,7 +67,7 @@ export default function Cart(){
 
     function MoveOn(){
             if(Buy.length === 0){
-                alert("Seu carrinho esta vazio")
+                Swal.fire("Seu carrinho esta vazio")
                 return
             }
             navigate("/Payment")

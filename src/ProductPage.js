@@ -7,6 +7,7 @@ import YellowStar  from "./assets/imgs/yellowstar.png"
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from './context.js/auth.js';
 import axios from 'axios';
+import Swal from 'sweetalert2'
 
 export default function ProductPage(props){
 
@@ -37,7 +38,11 @@ export default function ProductPage(props){
 
         axios.post(`${Env}/cart`,obj,Auth)
         .then((res)=>{
-            alert("Objeto colocado no carrinho!")
+            Swal.fire(
+                "Vai Brasil!",
+                "Objeto colocado no carrinho!",
+                "Successo"
+              )
             console.log(res.data)
         })
         .catch((err) => console.log(err.response.data))

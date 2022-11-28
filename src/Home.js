@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect, useContext } from 'react';
 import axios from "axios";
 import { AuthContext } from './context.js/auth.js';
+import Swal from 'sweetalert2'
 
 export default function Home(){
     const [Products,setProducts] = useState([])

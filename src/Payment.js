@@ -9,6 +9,7 @@ import Go from "./assets/imgs/Google.png"
 import { Link } from 'react-router-dom';
 import axios from "axios";
 import Terms from "./assets/imgs/terms.png"
+import Swal from 'sweetalert2'
 
 export default function Payment(){
 
@@ -46,7 +47,7 @@ export default function Payment(){
             .catch((err) => {
                 console.log(err)
                 console.log(err.response)
-                alert("Confirma os dados novamente,e verifique se estão todos corretos.")
+                Swal.fire("Confirma os dados novamente,e verifique se estão todos corretos.")
                 return
             })
     }

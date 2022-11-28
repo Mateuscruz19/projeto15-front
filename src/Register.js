@@ -7,6 +7,7 @@ import { AuthContext } from './context.js/auth.js';
 import Logo from  "./assets/imgs/NewLogo.png"
 import { Link } from 'react-router-dom';
 import axios from "axios";
+import Swal from 'sweetalert2'
 
 export default function Register(){
 
@@ -24,7 +25,7 @@ export default function Register(){
 
     function IntroSite(){
         if(NameUser === "" || EmailUser === "" || SenhaUser === "" || ConfirmSenhaUser === ""){
-            return alert("Tenha certeza que preencheu todos os campos")
+            return Swal.fire("Tenha certeza que preencheu todos os campos")
         }
 
         const obj = { nome: NameUser, email: EmailUser,  senha: SenhaUser, confirmSenha: ConfirmSenhaUser
@@ -35,7 +36,7 @@ export default function Register(){
         .then((res) =>{
             console.log("Cadastro concluido")
             console.log(res)
-            alert("Registrado com sucesso,agora logue para poder comprar a vontade :D")
+            Swal.fire("Registrado com sucesso,agora logue para poder comprar a vontade :D")
             navigate("/Login")
         })
         .catch((err) => {

@@ -20,13 +20,15 @@ import Cart from './Cart';
 import List from "./List"
 import Payment from './Payment';
 import Sucess from "./Sucess"
+import Swal from 'sweetalert2'
+
 export default function Principal(){
 
     const [isLog, setLog] = useState(false)
 
     function Deslog(){
         localStorage.removeItem("tokenBR")
-        alert("Deslogado com sucesso")
+        Swal.fire("Deslogado com sucesso")
     }
 
 

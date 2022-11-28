@@ -8,7 +8,7 @@ import Logo from  "./assets/imgs/NewLogo.png"
 import Go from "./assets/imgs/Google.png"
 import { Link } from 'react-router-dom';
 import axios from "axios";
-
+import Swal from 'sweetalert2'
 
 export default function Login(){
 
@@ -31,7 +31,7 @@ export default function Login(){
             "token":localStorage.getItem("tokenBR"),
             "nome":localStorage.getItem("nome")
         })
-        alert("Voce já esta logado,para deslogar clique em Deslogar no rodapé do site.")
+        Swal.fire("Voce já esta logado,para deslogar clique em Deslogar no rodapé do site.")
         navigate("/") 
         console.log(User)
        }
@@ -39,7 +39,7 @@ export default function Login(){
 
     function IntroSite(){
         if(EmailUser === "" || SenhaUser === ""){
-            alert("Tenha certeza que preencheu todos os campos")
+            Swal.fire("Tenha certeza que preencheu todos os campos")
             return
         }
 
@@ -60,7 +60,7 @@ export default function Login(){
             })
            .catch((err)=>{
             console.log(err)
-            alert(err.response.data)
+            Swal.fire(err.response.data)
            })
     }
 
