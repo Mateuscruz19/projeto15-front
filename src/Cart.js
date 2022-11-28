@@ -27,8 +27,15 @@ export default function Cart(){
         axios.get(`${Env}/cart`,Auth)
         .then((res) =>{
             setBuy(res.data)
-            res.data.filter()
-            
+
+            const biggestNames = res.data
+            .map(person => Number(person.valor));
+            console.log(biggestNames)
+            var soma = 0;
+            for(var i = 0; i < biggestNames.length; i++) {
+             soma += biggestNames[i];
+                }
+            setTotal(soma)
             console.log(res.data)
             console.log("Funcionou")
         })
