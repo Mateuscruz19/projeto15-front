@@ -14,12 +14,12 @@ export default function ProductPage(props){
     const [Image, setImage] = useState("https://media.istockphoto.com/id/924949200/vector/404-error-page-or-file-not-found-icon.jpg?s=170667a&w=0&k=20&c=gsR5TEhp1tfg-qj1DAYdghj9NfM0ldfNEMJUfAzHGtU=")
     const [Name, setName] = useState("404 NOT FOUND")
     const location = useLocation()
-    const { setUser,User } = useContext(AuthContext);
+    const { setUser,User,Env } = useContext(AuthContext);
     let navigate = useNavigate();
     console.log(location)
 
     function CardAdd(){
-        if(!User){
+        if(!localStorage.getItem("tokenBR")){
             alert("Voce precisa estar logado para adicionar itens no carrinho.")
             navigate("/Login")
             return 
@@ -35,7 +35,7 @@ export default function ProductPage(props){
             "headers": { "Authorization": `Bearer ${User.tokenBR}` }
         }
 
-        axios.post("http://localhost:5000/cart",obj,Auth)
+        axios.post(`${Env}/cart`,obj,Auth)
         .then((res)=>{
             alert("Objeto colocado no carrinho!")
             console.log(res.data)

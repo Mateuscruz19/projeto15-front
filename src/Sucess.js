@@ -11,12 +11,14 @@ import axios from "axios";
 import QRcode from "./assets/imgs/qrcode.png"
 
 export default function Sucess(){
+
+    const { Code,User } = useContext(AuthContext);
     return(
         <>
         <Main>
             <Title>sucesso!</Title>
             <Title>Seu pedido foi processado com sucesso e jaja saira para entrega.</Title>
-            <NumberRequest>Pedido:1287312</NumberRequest>
+            <NumberRequest>Pedido:{Code}</NumberRequest>
             <NumberRequest>Acompanhe seu pedido pelo QRcode abaixo.</NumberRequest>
             <img src={QRcode} width={"300px"}/>
             <Link to="/">

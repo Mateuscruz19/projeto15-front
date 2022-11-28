@@ -24,6 +24,12 @@ export default function Principal(){
 
     const [isLog, setLog] = useState(false)
 
+    function Deslog(){
+        localStorage.removeItem("tokenBR")
+        alert("Deslogado com sucesso")
+    }
+
+
     return(
         <>
         <BrowserRouter>
@@ -38,8 +44,12 @@ export default function Principal(){
             </TopLeft>
            
            <TopRight>
+            <Link to="/Register">
            <p>Cadastrar</p>
+           </Link>
+           <Link to="/Login">
            <p>Entre</p>
+           </Link>
            </TopRight>
             </TopLineConteiner>
             
@@ -96,6 +106,7 @@ export default function Principal(){
             <p>Metodos de Pagamento</p>
             <p>Garantia</p>
             <p>Devolução</p>
+            <p onClick={Deslog}>Deslogar</p>
             </FootersDiv>
 
             <FootersDiv>

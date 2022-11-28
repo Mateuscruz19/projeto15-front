@@ -4,7 +4,7 @@ import { createGlobalStyle } from 'styled-components'
 import { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from './context.js/auth.js';
-import Logo from "./assets/imgs/LogoRedVersion.png"
+import Logo from  "./assets/imgs/NewLogo.png"
 import Go from "./assets/imgs/Google.png"
 import { Link } from 'react-router-dom';
 import axios from "axios";
@@ -16,7 +16,7 @@ export default function Login(){
     const [EmailUser, setEmail] = useState("")
     const [SenhaUser, setSenha] = useState("")
 
-    const { setUser,User } = useContext(AuthContext);
+    const { setUser,User,Env } = useContext(AuthContext);
     const [SignUser,SetSignUser] = useState({})
 
     let navigate = useNavigate();
@@ -47,7 +47,7 @@ export default function Login(){
             "senha":SenhaUser
         }
         SetSignUser(obj)
-            axios.post("http://localhost:5000/signin",obj).then((res)=>{
+            axios.post(`${Env}/signin`,obj).then((res)=>{
                 localStorage.setItem("tokenBR",res.data.token);
                 localStorage.setItem("nome",res.data.name)
                 setUser({
@@ -78,7 +78,7 @@ export default function Login(){
                     <Email placeholder='E-mail' value={EmailUser} onChange={E => setEmail(E.target.value)}></Email>
 
                     <TextPass>Senha</TextPass>
-                    <Senha placeholder='Senha' value={SenhaUser} onChange={S => setSenha(S.target.value)}></Senha>
+                    <Senha placeholder='Senha' type="password" value={SenhaUser} onChange={S => setSenha(S.target.value)}></Senha>
                 <ConteinerRemember>
                     <RememberMe>
                         <Checkbox onClick={emBreve}></Checkbox>

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components'
 import { useState, useEffect, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate, useOutlet } from 'react-router-dom';
 import { AuthContext } from './context.js/auth.js';
 import Logo from "./assets/imgs/LogoRedVersion.png"
 import Go from "./assets/imgs/Google.png"
@@ -13,8 +13,10 @@ import axios from "axios";
 export default function Cart(){
 
     const [Buy,setBuy] = useState([])
-    const { setUser,User } = useContext(AuthContext);
+    const { setUser,User,Env } = useContext(AuthContext);
     const [Att, setAtt] = useState(0)
+    const [Total, setTotal] = useState(0)
+    let navigate = useNavigate();
 
     useEffect(() => {
 
@@ -22,9 +24,11 @@ export default function Cart(){
             "headers": { "Authorization": `Bearer ${User.token}` }
         }
 
-        axios.get("http://localhost:5000/cart",Auth)
+        axios.get(`${Env}/cart`,Auth)
         .then((res) =>{
             setBuy(res.data)
+            res.data.filter()
+            
             console.log(res.data)
             console.log("Funcionou")
         })
@@ -33,13 +37,16 @@ export default function Cart(){
         })
     },[Att])
 
+   
+
+
     function DeleteProduct(props){
         
         const Auth = {
             "headers": { "Authorization": `Bearer ${User.tokenBR}` }
         }
 
-        axios.delete(`http://localhost:5000/cart/${props._id}`,{},Auth)
+        axios.delete(`${Env}/cart/${props._id}`,{},Auth)
         .then((res) => {
             console.log(res.data)
             alert(`O produto ${props.nome} foi deletado com sucesso.`)
@@ -51,6 +58,13 @@ export default function Cart(){
         })
     }
 
+    function MoveOn(){
+            if(Buy.length === 0){
+                alert("Seu carrinho esta vazio")
+                return
+            }
+            navigate("/Payment")
+    }
 
     return(
         <>
@@ -73,14 +87,12 @@ export default function Cart(){
             </CartItens>
             <Left>
             <Pricebox>
-                <PriceYet>Total: R$ 300.00</PriceYet>
+                <PriceYet>Total: R$ {Total}</PriceYet>
                 <p>Confira mais informações ao finalizar a compra</p>
                 <Link to="/">
                     <ButtonReturn>Compre mais itens</ButtonReturn>
                     </Link>
-                    <Link to="/Payment">
-                        <ButtonFinalized>Finalize o carrinho</ButtonFinalized>
-                    </Link>
+                        <ButtonFinalized onClick={MoveOn}>Finalize o carrinho</ButtonFinalized>
             </Pricebox>
             </Left>
         </Main>

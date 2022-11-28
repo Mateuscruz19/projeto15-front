@@ -23,12 +23,12 @@ export default function List(){
 
     
     const [Products,setProducts] = useState([])
-    const { setUser,User } = useContext(AuthContext);
+    const { setUser,User,Env } = useContext(AuthContext);
 
     
     useEffect(()=> {
 
-        axios.get("http://localhost:5000/products")
+        axios.get(`${Env}/products`)
         .then((res) => {
             console.log(res.data)
             setProducts(res.data)

@@ -13,9 +13,42 @@ import Terms from "./assets/imgs/terms.png"
 export default function Payment(){
 
     let navigate = useNavigate();
-    
+    const [Cep, setCep] = useState("");
+    const [Numero, setNumero] = useState(0)
+    const [Rua, setRua] = useState("")
+    const [Cartao, setCartao] = useState(0)
+    const [Validade, setValidade] = useState(0)
+    const [codCartao, setCodigo] = useState(0)
+    const { setUser,User,Env,setCode } = useContext(AuthContext);
+
+
    function Finish(){
-        navigate("/Sucess")
+
+    const Auth = {
+        "headers": { "Authorization": `Bearer ${User.token}` }
+    }
+
+    const obj = {
+        "cep":Cep,
+        "numero":Numero,
+        "rua":Rua,
+        "cartao":Cartao,
+        "validade":Validade,
+        "codCartao":codCartao
+    }
+
+            axios.post(`${Env}/payment`,obj,Auth)
+            .then((res) => {
+                setCode(res.data)
+                console.log(obj)
+                navigate("/Sucess")
+            })
+            .catch((err) => {
+                console.log(err)
+                console.log(err.response)
+                alert("Confirma os dados novamente,e verifique se estão todos corretos.")
+                return
+            })
     }
 
     return(
@@ -27,21 +60,21 @@ export default function Payment(){
             <ConteinerEntrega>
             <BoxTitle>Detalhes da entrega</BoxTitle>
             <SubTitle>44444444</SubTitle>
-            <ButtonCep maxLength={8} placeholder='Cep'></ButtonCep>
+            <ButtonCep maxLength={8} value={Cep} onChange={(C)=>setCep(C.target.value)} placeholder='Cep'></ButtonCep>
             <SubTitle>Rua Testando Testado</SubTitle>
-            <ButtonRua placeholder='Rua'></ButtonRua>
+            <ButtonRua placeholder='Rua' value={Rua} onChange={(R)=>setRua(R.target.value)}></ButtonRua>
             <SubTitle>444</SubTitle>
-            <ButtonNumero maxLength={3} placeholder='Numero'></ButtonNumero>
+            <ButtonNumero maxLength={3} value={Numero} onChange={(N)=>setNumero(N.target.value)} placeholder='Numero'></ButtonNumero>
             </ConteinerEntrega>
             <img src={Terms}/>
             <ConteinerPagamento>
             <BoxTitle>Detalhes do Pagamento</BoxTitle>
             <SubTitle>1111111111111111</SubTitle>
-            <ButtonRua maxLength={16} placeholder='Numero do Cartao'></ButtonRua>
+            <ButtonRua maxLength={16} value={Cartao} onChange={(Ca)=>setCartao(Ca.target.value)} placeholder='Numero do Cartao'></ButtonRua>
             <SubTitle>0120</SubTitle>
-            <ButtonNumero maxLength={4} placeholder='Validade'></ButtonNumero>
+            <ButtonNumero maxLength={4} value={Validade} onChange={(V)=>setValidade(V.target.value)} placeholder='Validade'></ButtonNumero>
             <SubTitle>444</SubTitle>
-            <ButtonNumero maxLength={3} placeholder='Codigo'></ButtonNumero>
+            <ButtonNumero maxLength={3} value={codCartao} onChange={(cod)=>setCodigo(cod.target.value)} placeholder='Codigo'></ButtonNumero>
             </ConteinerPagamento>
             <FinalizarCompra onClick={Finish}>Finalizar Compra</FinalizarCompra>
         </ConteinerAll>

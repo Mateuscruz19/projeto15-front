@@ -1,11 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components'
-import { useState, useEffect, useContext } from 'react';
+import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from './context.js/auth.js';
-import Logo from "./assets/imgs/LogoRedVersion.png"
-import Go from "./assets/imgs/Google.png"
+import Logo from  "./assets/imgs/NewLogo.png"
 import { Link } from 'react-router-dom';
 import axios from "axios";
 
@@ -20,7 +19,7 @@ export default function Register(){
     const [SignUser,SetSignUser] = useState({})
 
 
-    const { setUser } = useContext(AuthContext);
+    const { setUser,Env } = useContext(AuthContext);
     let navigate = useNavigate();
 
     function IntroSite(){
@@ -30,8 +29,9 @@ export default function Register(){
 
         const obj = { nome: NameUser, email: EmailUser,  senha: SenhaUser, confirmSenha: ConfirmSenhaUser
         }
+
         SetSignUser(obj)
-        axios.post("http://localhost:5000/signup",obj)
+        axios.post(`${Env}/signup`,obj)
         .then((res) =>{
             console.log("Cadastro concluido")
             console.log(res)
@@ -59,9 +59,9 @@ export default function Register(){
                     <TextEmail>Email</TextEmail>
                     <Email placeholder='E-mail' value={EmailUser} onChange={E => setEmail(E.target.value)}></Email>
                     <TextPass>Senha</TextPass>
-                    <Senha placeholder='Senha' value={SenhaUser} onChange={S => setSenha(S.target.value)}></Senha>
+                    <Senha placeholder='Senha' type="password" value={SenhaUser} onChange={S => setSenha(S.target.value)}></Senha>
                     <TextPass>Confirme a senha</TextPass>
-                    <Senha placeholder='Confirme a senha' value={ConfirmSenhaUser} onChange={C => setConfirm(C.target.value)}></Senha> 
+                    <Senha placeholder='Confirme a senha' type="password" value={ConfirmSenhaUser} onChange={C => setConfirm(C.target.value)}></Senha> 
                 <Entrar onClick={IntroSite}><p>Registrar-se</p></Entrar>
                 <Link to="/Login" disabled={Loading ? true : false}>
                 <RegisterBox>Já tem uma conta?<span>Logue!</span></RegisterBox>
@@ -92,6 +92,7 @@ const Background = styled.main`
     margin-top:50px;
 
 `
+
 const LogoA = styled.img`
 
     width:250px;
@@ -118,7 +119,7 @@ const LoginText = styled.p`
     line-height: 39px;
     letter-spacing: 0.01em;
     text-transform: capitalize;
-    color: #344054;
+    color: blue;
     flex: none;
     order: 0;
     flex-grow: 0;
@@ -236,7 +237,7 @@ const Entrar = styled.button`
     align-items: center;
     width: 327px;
     height: 44px;
-    background: #000;
+    background: #FF1616;
     border-radius: 8px;
     cursor: pointer;
 
